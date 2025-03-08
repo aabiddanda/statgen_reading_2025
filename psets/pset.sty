@@ -1,0 +1,115 @@
+
+% PSet Header %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\@name{}
+\newcommand\name[1]{\renewcommand\@name{#1}}
+
+\newcommand\@netID{}
+\newcommand\netID[1]{\renewcommand\@netID{#1}}
+
+\renewcommand\@date{}
+\renewcommand\date[1]{\renewcommand{\@date}{#1}}
+
+\newcommand\@psnum{}
+\newcommand\psnum[1]{\renewcommand\@psnum{#1}}
+
+\newcommand\@class{}
+\newcommand\class[1]{\renewcommand\@class{#1}}
+
+\newcommand\@collab{}
+\newcommand\collab[1]{\renewcommand\@collab{#1}}
+
+%The generic title creation
+\renewcommand\maketitle{
+	\vspace*{-5em}
+	\begin{center}\framebox{\parbox{\boxlength}{\bf
+		\@name \hfill Problem Set \@psnum\\ 
+		\@class  \hfill \@date
+	}}
+	\end{center}
+	\vspace{1em}
+}
+
+%Alternate problem set title creation, with collaborators
+\newcommand\maketitleAlt{
+	\vspace*{3em}
+	\begin{center}
+		{\huge \textbf{\@class \ HW\ \@psnum}}\\
+		{\normalsize \@name\footnote{Collaborating with \@collab}\ (\@netID) \ \@date}
+	\end{center}
+	\vspace*{3em}
+}
+
+\newcommand\problem[1]{\section*{#1}}
+
+\newcommand\problempart[1]{\textbf{#1}}
+
+% Hyperlinks %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage[hidelinks]{hyperref}
+\newcommand\link[2]{\href{#1} {{\color{blue}\underline{\smash{#2}}}}}
+
+% Proof Environment %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{amsthm, amssymb}
+
+\renewcommand\qedsymbol{\rule{0.7em}{0.7em}}
+
+\renewenvironment{proof}[1][\proofname]{{\bfseries \textit{#1} \\}}{\qed}
+
+%Need some other commands, for lemmas and stuff.
+
+% Graph Environment %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{tikz,graphicx}
+\RequirePackage{ifthen,optparams}
+
+\tikzstyle{vertex}=[circle, draw, inner sep=0pt, minimum size = 9pt]
+
+\newcommand\vertex{\node[vertex]}
+
+\long\def\uedge@[#1][#2]#3#4{
+	\ifthenelse{\equal{#1}{}}{\draw #3 edge #4;}{\draw #3 edge node[#1] {#2} #4;}
+}
+
+\newcommand\uedge{
+	\optparams{\uedge@}{[][]}	
+}
+
+\long\def\dedge@[#1][#2]#3#4{
+	\ifthenelse{\equal{#1}{}}{\draw[->] #3 edge #4;}{\draw[->] #3 edge node[#1] {#2} #4;}
+} 
+
+\newcommand\dedge{
+	\optparams{\dedge@}{[][]}
+}
+
+
+% Matrix Environment %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Figure Environment %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{float}
+
+%Alternative to the standard caption
+\newcommand\figurenote[2]{
+\begin{center}
+\textbf{#1}\ {#2}
+\end{center}
+}
+
+\newenvironment{center_figure}{\begin{figure}[H]\begin{center}}{\end{center}\end{figure}}
+
+% Listings Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{listings}
+
+% ---- TODO ----%
+
+
+
+
+
+
+
+
+
+
+
+
+
