@@ -1,0 +1,12 @@
+*.log 
+*.out 
+*.aux 
+*.pdf 
+*.bak 
+*.toc 
+*.blg 
+*.bbl
+*.txt
+*.fls
+*.fdb*
+*.xdv
