@@ -8,57 +8,98 @@
 \begin{document}
 \maketitle
 
-\section{Probability Distributions}
+\section*{Probability Distributions}
 
-\subsection{}
+\subsection*{}
 
-\subsection{}
+\subsection*{}
 
-\subsection{}
-
-
-\section{Likelihoods and P-values}
-
-\subsection{Likelihood of Linear Regression}
+\subsection*{}
 
 
-\subsection{Score Test}
+\section*{Likelihoods and P-values}
+
+\subsection*{Likelihood of Linear Regression}
 
 
-\subsection{Wald Test}
+% \subsection*{Score Test}
 
 
-\subsection{Likelihood Ratio Test}
+% \subsection*{Wald Test}
 
 
-\subsection{}
+% \subsection*{Likelihood Ratio Test}
 
 
-\section{Multiple Testing Correction and False Discoveries}
-
-\subsection{}
-
-\subsection{}
-
-\subsection{}
+\section*{Multiple Testing Correction and False Discovery Rates}
 
 
-\section{GWAS Power and Study Design}
+\subsection*{}
 
-\subsection{}
 
-\subsection{Sample-Size}
+\subsection*{}
+
+
+\subsection*{False Discoveries in Empirical Data}
 
 
 
-\subsection{\bLozenge\bLozenge\bLozenge}
 
-\section{Practical GWAS}
 
-\subsection{}
 
-\subsection{}
+\section*{GWAS Power and Study Design}
 
-\subsection{}
+\subsection*{Sample Size}
+
+Suppose you are conducting a GWAS for quantitative trait $YFT$ (your favorite trait), and you want to collect $N=100,000$ individuals. 
+
+\begin{itemize}
+	\item Under an expected power of 0.8, what is the minimal effect size ($\beta$) detectable for a fully typed variant $r^2 = 1$ at an MAF of: 
+	\begin{itemize}
+		\item 5\% 
+		\item 1\%
+		\item 0.1\%
+	\end{itemize}
+	\item Your colleague wants to see if a specific missense variant at 0.1\% frequency in the population (with an imputation $r^2 = 0.8$), would be detectable in your current GWAS design? What would be the minimal effect-size detectable for this variant?  
+\end{itemize}
+
+\subsection*{$\bLozenge$ GWAS Discovery Rate} 
+
+\begin{enumerate}
+\item Fixing GWAS power at 0.8 and fully typed variants ($r^2 = 1)$, if causal variant effects are drawn from $\beta_{causal} \sim \mathcal{N}(0,\sigma^2)$, what is the \textit{expected fraction of additional discoveries} made in going from $N_1 = 10^4$ to $N_2 = 10^5$ when $\sigma^2 = 2$? (Assume causal allele frequencies are drawn from the Uniform distribution). 
+	
+\item If $\beta | p \sim N(0, \sigma^2)$, where $\sigma^2 = \left(p(1-p)\right)^{\alpha}$ for causal variants (e.g. the effect size is linked to allele frequency), what is the expected fraction of additional discoveries when $\alpha = 0.75$ 
+\end{enumerate}
+
+Provide either an analytical solution or a plot reflecting the numerical solution for both scenarios. 
+
+% \subsubsection*{Effective Sample-Size in Linear-Mixed Models}
+
+% Up until this point we have made sure to reliably 
+
+\subsubsection*{$\bLozenge$  Effect of Tagging Variant LD}
+
+The $r^2$ measure of LD is critical when you do not have direct access to a causal variant and only have a potential tagging variant. If we assume that $p_{tag} >= p_{causal}$, the expression is: 
+
+$$r^2_{max}(tag, causal) = \frac{(1 - p_{tag})(1 - p_{causal})}{p_{tag}p_{causal}}$$
+
+Using the expressions for GWAS power for a quantitative trait, and $r^2_{max}(p_{tag}, p_{causal})$, prove that:
+
+$$Power_{tag} \geq Power_{tag} \forall p_{tag} \geq p_{causal}$$
+
+\subsection*{$\bLozenge\bLozenge$ Comparing GWAS}
+
+Your colleague has an interesting case where $YFT$ is highly prevalent in a different population (lets say population ``B'')and wants to understand if the same variant is driving this increase in prevalence. Your collaborator has access to $N_B=50000$ samples, but doesn't have a good sense of whether this would be well-suited to address the idea.
+
+If the effect-size of the causal variant is the same $\beta_A = \beta_B$, what would be the difference in frequency of the causal variant required to maintain a power of 80\% if the variant in population $A$ is at 0.1\% frequency? (Assume $N_A = 100,000$)  
+
+
+\section*{GWAS Practical}
+
+\subsection*{}
+
+\subsection*{}
+
+\subsection*{}
 
 \end{document}
