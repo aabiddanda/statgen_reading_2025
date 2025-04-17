@@ -3,6 +3,8 @@
 \LoadClass{article}
 \RequirePackage{pset}
 \RequirePackage{mathpartir}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
 
 % Page layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
