@@ -13,13 +13,32 @@
 
 \subsection*{Discrete Distributions}
 
+We want to model the counts of two independent processes that are described by the random variables $X$ and $Y$, with the following distributions: 
 
+$$
+\begin{aligned}
+X &\sim Binomial(n,p)\\
+Y &\sim Poisson(\lambda)\\ 
+\end{aligned}
+$$
 
+\begin{enumerate}
+\item What are the following expected values $\mathbb{E}[X], \mathbb{E}[Y], \mathbb{E}[X + Y]$?
+\item What is the probability of $X < Y$ when $n=10, p=0.5, \lambda=5$? 
+\item What is the \textit{conditional} probability distribution of $\mathbb{P}(X + Y | Y)$?
+\end{enumerate}
 
 \subsection*{Continuous Distribution}
 
+We have a density function with the following form: 
 
+$$f(x) \propto e^{-x^2}$$
 
+\begin{enumerate}
+\item Estimate the proportionality constant in front of the density function.
+\item What is the expected value of the random variable $X$ with the above density function?
+\item What is the density function for $X + X$ for two independent random variables?
+\end{enumerate}
 
 \section*{Likelihoods and P-values}
 
