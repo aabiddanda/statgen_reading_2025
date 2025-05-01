@@ -11,3 +11,4 @@
 *.fdb*
 *.xdv
 sandbox/
+docsrc/build/*
