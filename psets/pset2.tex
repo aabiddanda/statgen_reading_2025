@@ -1,53 +1,94 @@
 \documentclass{pset}
 
 \name{Arjun Biddanda}
-\date{6/1/2025}
+\date{6/8/2025}
 \psnum{2}
 \class{Statistical Genetics Reading Group}
 
 \begin{document}
 \maketitle
 
-\section{Polygenicity}
+\section*{GWAS Power and Study Design}
 
-One core aspect of complex trait architectures is the total number of loci ($M$) involved in the etiology of a complex trait. The proportion of \textit{non-null} genetic associations can be thought of as the polygenicity of a complex trait. We will consider the following simple model for polygenicity based on a normal mixture model:  
+\subsubsection*{Sample Size Calciulations}
 
-$$Z \sim \pi_0 \mathcal{N}(0,1) + (1 - \pi_0)\mathcal{N}(0,\sigma)$$
+Suppose you are conducting a GWAS for quantitative trait $YFT$ (your favorite quantitative trait), and you want to collect $N=100,000$ individuals. 
 
-\subsection*{Likelihood Calculation}
+\begin{itemize}
+	\item At a power threshold of $0.8$, what is the minimal standardized effect size ($\beta$) detectable for a fully typed variant $r^2 = 1$ at an MAF of: 
+	\begin{itemize}
+		\item 5\% 
+		\item 1\%
+		\item 0.1\%
+	\end{itemize}
+	\item Your colleague wants to see if a specific missense variant at 0.1\% frequency in the population (with an imputation $r^2 = 0.8$), would be detectable in your current GWAS design?. What would be the minimal effect-size detectable for this variant?  
+\end{itemize}
+
+\subsubsection*{$\bLozenge\bLozenge$ GWAS Discovery Rate} 
+
+\begin{enumerate}
+\item Fixing GWAS power at $0.8$ and assuming fully typed variants ($r^2 = 1)$, if causal variant effects are drawn from $\beta_{causal} \sim \mathcal{N}(0,\sigma^2)$, what is the \textit{expected fraction of additional discoveries} made in going from $N_1 = 10^4$ to $N_2 = 10^5$ when $\sigma^2 = 2$? (Assume causal allele frequencies are drawn from the Uniform distribution). 
+	
+\item If $\beta | p \sim N(0, \sigma^2)$, where $\sigma^2 = \left(p(1-p)\right)^{\alpha}$ for causal variants (e.g. the effect size is linked to allele frequency), what is the expected fraction of additional discoveries when $\alpha = 0.75$? (assume causal allele frequencies are drawn from the Uniform distribution).
+\end{enumerate}
+
+Provide either an analytical solution or a plot reflecting the numerical solution for both scenarios. 
+
+\subsubsection*{$\bLozenge\bLozenge\bLozenge$  Effect of Tagging Variant LD}
+
+The $r^2$ measure of LD is critical when you do not have direct access to a causal variant and only have a tagging variant. If we assume that $p_{tag} >= p_{causal}$, the expression is: 
+
+$$r^2_{max}(tag, causal) = \frac{(1 - p_{tag})(1 - p_{causal})}{p_{tag}p_{causal}}$$
+
+Using the expressions for GWAS power for a quantitative trait, and $r^2_{max}(p_{tag}, p_{causal})$, show that:
+
+$$Power_{tag} \geq Power_{tag} \forall p_{tag} \geq p_{causal}$$
+
+\subsubsection*{$\bLozenge\bLozenge$ Comparing GWAS}
+
+Your colleague has an interesting case where $YFT$ is highly prevalent in a different population (lets say population ``B'')and wants to understand if the same variant is driving this increase in prevalence. Your collaborator has access to $N_B=50000$ samples, but doesn't have a good sense of whether this would be well-suited to address the idea.
+
+If the effect-size of the causal variant is the same $\beta_A = \beta_B$, what would be the difference in frequency of the causal variant required to maintain a power of 80\% if the variant in population $A$ is at 0.1\% frequency? (Assume $N_A = 100,000$)  
 
 
-\subsection*{Maximum-Likelihood Estimation}
+\section*{GWAS Practical}
 
-Using the summary statistics provided - calculate the maximum-likelihood estimates of $\hat{\Theta} = (\hat{\pi}_0, \hat{\sigma})$ for trait A and trait B. You may use numerical or analytical methods. 
+For a GWAS practical, we will use publicly available summary statistics from the Pan-UKBB project. Specifically we will use data for a dataset on total bilirubin (a key liver enzyme) where GWAS was performed separately across six different ancestries in the UK Biobank. The ancestral groupings are: 
 
-\subsection*{Revised Model $\bLozenge\bLozenge$}
+\begin{itemize}
+	\setlength{\itemsep}{0pt}
+	\item EUR = European ancestry($N=399286$)
+	\item CSA = Central/South Asian ancestry ($N=8395$)
+	\item AFR = African ancestry ($N=6176$)
+	\item EAS = East Asian ancestry ($N=2549$)
+	\item MID = Middle Eastern ancestry ($N=1491$)
+	\item AMR = Admixed American ancestry ($N=933$)
+\end{itemize}
 
-Let us consider a revised model where we directly model the estimated univariate effect-sizes and their standard errors $(\hat{\beta}, \hat{s})$:
+To obtain the data for this exercise run: 
 
-$$f(\hat{\beta} | \beta, \hat{s}) = P(\hat{\beta} | \beta)$$
+\begin{center}
+\texttt{wget \url{https://pan-ukb-us-east-1.s3.amazonaws.com/sumstats_flat_files/biomarkers-30840-both_sexes-irnt.tsv.bgz}}
+\end{center}
 
+\subsection*{Genomic Inflation Factor}
 
+While many covariates have been accounted for when evaluating genetic effects - it is possible that there are still unobserved confounders present. One way to  evaluate the extent of possible confounding has been using the genomic-inflation factor, which is defined as: 
 
-\subsection*{Estimation from Empirical Datasets}
+$$\hat{\lambda}_{GC} = \text{median}(\hat{\chi}^2) / F^{-1}_{\chi^2_1}(0.5)$$  
 
-Using summary statistics from the Pan-UKBB for a number of 
+where $F^{-1}_{\chi^2_1}(0.5) \approx 0.455$ is the expected median of the chi-squared distribution with 1 degree of freedom under the null hypothesis of no association. 
 
+\begin{enumerate}
+\item Estimate $\hat{\lambda}_{GC}$ for each individual population separately using the relationship that $\hat{\chi}^2 = \left(\frac{\hat{\beta}}{s_\beta}\right)^2$. 
+\item Are the estimates of $\lambda_{GC}$ significantly $> 1$ for each population? (Hint: use bootstrapping to re-sample the effect-sizes to construct empirical 95\% confidence intervals)
+\item $\bLozenge$ Re-estimate $\lambda$ using only every 10000$^{th}$ variant to avoid the effect of linkage disequilibrium and evaluate the differences relative the non LD-pruned version. Comment on how LD may violate some of the assumptions of $\lambda_{GC}$.
+\end{enumerate} 
 
+\subsection*{Power \& Shared Signals}
 
+One of the useful things about the Pan-UKBB project is that it can illustrate how to compare the \textit{power} of GWAS across different study designs. For a start, let us compare the intersection of signals found at a genome-wide threshold 
 
-\section{Winner's Curse}
-
-% NOTE: this is going to be based on 
-
-
-
-\section{Heritability}
-
-
-
-
-\section{Indirect Genetic Effects}
 
 
 

@@ -5,6 +5,7 @@
 \RequirePackage{mathpartir}
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
+\RequirePackage{hyperref}
 
 % Page layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

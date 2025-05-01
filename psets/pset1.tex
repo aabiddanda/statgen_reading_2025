@@ -10,10 +10,9 @@
 
 \section*{Probability Distributions (Review)}
 
-
 \subsection*{Discrete Distributions}
 
-We want to model the counts of two independent processes that are described by the random variables $X$ and $Y$, with the following distributions: 
+We want to model the counts of two \textit{independent} processes described by the random variables $X$ and $Y$, with the following distributions: 
 
 $$
 \begin{aligned}
@@ -28,16 +27,16 @@ $$
 \item What is the \textit{conditional} probability distribution of $\mathbb{P}(X + Y | Y)$?
 \end{enumerate}
 
-\subsection*{Continuous Distribution}
+\subsection*{Continuous Distributions}
 
-We have a density function with the following form: 
+We have a density function with the following form for $x\in (-\infty, \infty)$: 
 
 $$f(x) \propto e^{-x^2}$$
 
 \begin{enumerate}
-\item Estimate the proportionality constant in front of the density function.
+\item Estimate the proportionality constant for the density function to be a valid probability density. You are allowed to use symbolic algebra tools (e.g. \texttt{sympy}) for this task if needed (Hint: a probability density should integrate to 1). Numerical answers are also acceptable.
 \item What is the expected value of the random variable $X$ with the above density function?
-\item What is the density function for $X + X$ for two independent random variables?
+\item What is the variance of $X$? (Hint: use the relationship $Var(X) = \mathbb{E}[X^2] - \mathbb{E}[X]^2$)
 \end{enumerate}
 
 \section*{Likelihoods and P-values}
@@ -51,7 +50,7 @@ $$y_i \sim \mathcal{N}(x_i\beta, \sigma)$$
 Using this definition:
 
 \begin{itemize}
-\item Write the expression for the log-likelihood of $N$ datapoints in terms of $\beta,\sigma$ using the normal density function.
+\item Write the expression for the log-likelihood of $N$ datapoints in terms of $\beta, \sigma$ using the normal density function.
 \item Using the data provided in \texttt{data/pset1/linregA.tsv}, calculate the log-likelihood of the data with $\beta = 0,\sigma=1$. Calculate the log-likelihood at the value of $\hat{\beta}$ which maximizes the log-likelihood. 
 \item For computational estimation, many approaches use ``least-squares'', which tries to find the $\beta$ which minimizes $\sum_i (y_i - x_i\beta)^2$. Calculate the least-squares estimate of $\beta$ based on the current data. Comment on how this is similar (both mathematically and empirically) to the maximum-likelihood estimator.
 \end{itemize}
@@ -66,7 +65,7 @@ where the fraction $\pi_0$ can be treated as an estimate of the proportion of no
 
 \begin{enumerate}
 \item Write down the log-likelihood function for p-values (e.g. $\log (\mathbb{P}(\overrightarrow{\mathbf{p}} | \pi_0, \beta))$)
-\item Using the data in \texttt{data/pset1/sumstats\_testA.tsv}, plot the log-likelihood as a function of $\pi_0$ when $\beta = 4$. Provide an estimate of the value of $\pi_0$ that maximizes the log-likelihood. (Hint: look up tricks to avoid numerical underflow.)
+\item Using the data in \texttt{data/pset1/sumstats\_testA.tsv}, plot the log-likelihood as a function of $\pi_0$ when $\beta = 4$. Provide an estimate of the value of $\pi_0$ that maximizes the log-likelihood. (Hint: use \texttt{logsumexp} to avoid numerical underflow.)
 \item Plot the log-likelihood as a function of $\pi_0$ with $\beta = 4$ for the data in \texttt{data/pset1/sumstats\_testB.tsv}. How does the curve appear relative to the first dataset?
 \item $\bLozenge\bLozenge$ The dataset also contains estimates of the standardized effect-size (or Z-score) corresponding to the p-values. Using the following mixture model for the Z-scores: 
 $$\overrightarrow{\mathbf{Z}} \overset{\text{iid}}{\sim} \pi_0 \mathcal{N}(0,1) + (1 - \pi_0)\mathcal{N}(0,\sigma)$$
@@ -77,87 +76,27 @@ repeat the above steps to estimate $\hat{\pi_0}$ using the Z-scores. Comment on 
 
 \section*{Multiple Testing Correction and False Discovery Rates}
 
-\subsection*{Comparing FWER and FDR}
-
 There are two error rates relevant to statistical genetics, the family-wise error rate (FWER) and the false-discovery rate (FDR):
 
 $$
 \begin{aligned}
 FWER &= P(R > 0 | H_0)\\
 FDR &= P(R/n \leq r | H_0)\\
-\end{aligned},
+\end{aligned}
 $$
 
-where $R$ is a random variable representing a rejection of the null hypothesis and $n$ is the total number of tests. 
+, where $R$ is a random variable representing the number of rejections of the null hypothesis and $n$ is the total number of tests. 
 
 \begin{enumerate}
 \item Assuming that you are conducting $n=10^6$ independent hypothesis tests, at a marginal testing threshold of $\alpha = 0.05$ what is the FWER and FDR respectively?  (Hint: consider the distribution of null p-values as Uniform and properties of the Bernoulli distribution to show this analytically).
 
-\item At what marginal threshold of $\alpha$ does the FWER drop below $0.05$ for the first time? (relate this to the Bonferroni-threshold of $5\times 10^{-8}$)? 
-\item Plot the FWER and FDR as a function of the marginal p-value threshold $\alpha$ and indicate the Bonferroni threshold on the plot
+\item At what marginal threshold of $\alpha$ does the FWER drop below $0.05$ for the first time? What about the FDR? How is this related to the Bonferroni-threshold of $5\times 10^{-8}$? 
+
+\item Plot the FWER and FDR as a function of the marginal p-value threshold $\alpha$ and indicate the Bonferroni threshold on the plot as a vertical line.
 
 \end{enumerate}
 
-\subsection*{False Discoveries in Empirical Data}
 
-Using empirical GWAS data for height, calculate the number of total signals 
-
-\section*{GWAS Power and Study Design}
-
-\subsubsection*{Sample Size}
-
-Suppose you are conducting a GWAS for quantitative trait $YFT$ (your favorite quantitative trait), and you want to collect $N=100,000$ individuals. 
-
-\begin{itemize}
-	\item Under an expected power of 0.8, what is the minimal effect size ($\beta$) detectable for a fully typed variant $r^2 = 1$ at an MAF of: 
-	\begin{itemize}
-		\item 5\% 
-		\item 1\%
-		\item 0.1\%
-	\end{itemize}
-	\item Your colleague wants to see if a specific missense variant at 0.1\% frequency in the population (with an imputation $r^2 = 0.8$), would be detectable in your current GWAS design?.What would be the minimal effect-size detectable for this variant?  
-\end{itemize}
-
-\subsubsection*{$\bLozenge\bLozenge$ GWAS Discovery Rate} 
-
-\begin{enumerate}
-\item Fixing GWAS power at $0.8$ and fully typed variants ($r^2 = 1)$, if causal variant effects are drawn from $\beta_{causal} \sim \mathcal{N}(0,\sigma^2)$, what is the \textit{expected fraction of additional discoveries} made in going from $N_1 = 10^4$ to $N_2 = 10^5$ when $\sigma^2 = 2$? (Assume causal allele frequencies are drawn from the Uniform distribution). 
-	
-\item If $\beta | p \sim N(0, \sigma^2)$, where $\sigma^2 = \left(p(1-p)\right)^{\alpha}$ for causal variants (e.g. the effect size is linked to allele frequency), what is the expected fraction of additional discoveries when $\alpha = 0.75$ (assume causal allele frequencies are drawn from the Uniform distribution).
-\end{enumerate}
-
-Provide either an analytical solution or a plot reflecting the numerical solution for both scenarios. 
-
-\subsubsection*{$\bLozenge\bLozenge\bLozenge$  Effect of Tagging Variant LD}
-
-The $r^2$ measure of LD is critical when you do not have direct access to a causal variant and only have a potential tagging variant. If we assume that $p_{tag} >= p_{causal}$, the expression is: 
-
-$$r^2_{max}(tag, causal) = \frac{(1 - p_{tag})(1 - p_{causal})}{p_{tag}p_{causal}}$$
-
-Using the expressions for GWAS power for a quantitative trait, and $r^2_{max}(p_{tag}, p_{causal})$, show that:
-
-$$Power_{tag} \geq Power_{tag} \forall p_{tag} \geq p_{causal}$$
-
-\subsubsection*{$\bLozenge\bLozenge$ Comparing GWAS}
-
-Your colleague has an interesting case where $YFT$ is highly prevalent in a different population (lets say population ``B'')and wants to understand if the same variant is driving this increase in prevalence. Your collaborator has access to $N_B=50000$ samples, but doesn't have a good sense of whether this would be well-suited to address the idea.
-
-If the effect-size of the causal variant is the same $\beta_A = \beta_B$, what would be the difference in frequency of the causal variant required to maintain a power of 80\% if the variant in population $A$ is at 0.1\% frequency? (Assume $N_A = 100,000$)  
-
-
-\section*{GWAS Practical}
-
-For a GWAS practical, we will use data from the Pan-UKBB project. 
-
-\subsection*{Quantile-Quantile Plots}
-
-
-
-\subsection*{Power differential}
-
-
-
-\subsection*{}
 
 
 \end{document}
