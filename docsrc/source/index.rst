@@ -1,20 +1,19 @@
 StatGen Reading Group 2025
 ==========================
 
-This is an unofficial course website for a reading group on statistical genetics - held in the summer of 2025 in the Department of Biology at  Johns Hopkins University.
+This is an *unofficial* course website for a reading group on statistical genetics - held in the summer of 2025 in the Department of Biology at  Johns Hopkins University.
 
 The primary functions (learning goals) of this reading group is to: 
 
 * have dedicated time to learn about the fundamentals underlying modern statistical genetic approaches
 * understand study design considerations for genetic studies 
-* conduct difficult problem sets
-
+* work together on problem sets that mirror common problems encountered in quantitative genetic research
 
 The course material and notes are derived and abbreviated  from two key resources: 
 
 1. Matti Pirinen's GWAS Course Notes: https://www.mv.helsinki.fi/home/mjxpirin/GWAS_course/
 
-2. Handbook of statistical genetics
+2. Handbook of Statistical Genomics: https://onlinelibrary.wiley.com/doi/book/10.1002/9781119487845
 
 
 .. toctree::
@@ -23,10 +22,3 @@ The course material and notes are derived and abbreviated  from two key resource
 
    psets
    notes
-
-.. Indices and tables
-.. ==================
-
-.. * :ref:`genindex`
-.. * :ref:`modindex`
-.. * :ref:`search`
