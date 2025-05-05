@@ -5,28 +5,29 @@ Here you can find links to the respective problem sets.
 
 For all data files for the problem sets, they can be found here: 
 
-:Problem Set 1:``
+`Problem Set 1 <https://github.com/aabiddanda/statgen_reading_2025/blob/pages/psets/pset1.pdf>`_.
 ===================
 
-This problem set primarily focuses on the following topics: 
+This problem set focuses on the following topics: 
 
 1. A review of statistical distributions and concepts like expected value and variance
 2. Calculating likelihoods from data for parameter estimation
 3. Hypothesis testing and adjusting for multiple hypotheses
 
 
-:Problem Set 2:``
+`Problem Set 2 <https://github.com/aabiddanda/statgen_reading_2025/blob/pages/psets/pset1.pdf>`_.
 ===================
 
 This problem set focuses on understanding: 
 
-1. Power estimation in GWAS
+1. Power calculations in GWAS
 2. Adjustments for confounding in GWAS
 
-:Problem Set 3:``
+
+`Problem Set 3 <https://github.com/aabiddanda/statgen_reading_2025/blob/pages/psets/pset1.pdf>`_.
 ===================
 
-This problem set focuses on developing an intuition for: 
+This problem set focuses on developing intuitions for: 
 
 1. Simple models for estimation of polygenicity 
 2. Description of the Winner's Curse effect in GWAS effect-size estimates
@@ -34,12 +35,11 @@ This problem set focuses on developing an intuition for:
 4. Simulation and the impact of indirect genetic effects
 
 
-:Problem Set 4:``
+`Problem Set 4 <https://github.com/aabiddanda/statgen_reading_2025/blob/pages/psets/pset1.pdf>`_.
 ====================
 
 This problem set focuses on: 
 
 1. Adapting GWAS models for molecular QTL (e.g. eQTL, mQTL)
 2. Estimates of allelic heterogeneity in molecular QTL
-3. Mendelian Randomization
-
+3. Mendelian Randomization techniques (and assumptions) for molecular QTL

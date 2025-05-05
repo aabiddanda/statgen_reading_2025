@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'StatGen Course 2025'
+project = 'StatGen RG'
 copyright = '2025, Arjun Biddanda'
 author = 'Arjun Biddanda'
 release = ''

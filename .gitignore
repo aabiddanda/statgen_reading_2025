@@ -12,3 +12,4 @@
 *.xdv
 sandbox/
 docsrc/build/*
+docsrc/_build/
