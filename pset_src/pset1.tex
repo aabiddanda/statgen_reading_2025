@@ -45,12 +45,15 @@ Linear regression is a central model for relating predictor variables ($\mathbf{
 
 $$y_i \sim \mathcal{N}(x_i\beta, \sigma)$$ 
 
+, where $\mathcal{N}(\mu, \sigma)$ is:
+
+$$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x - \mu)^2}{2\sigma^2}} $$
 Using this definition:
 
 \begin{enumerate}
 \item Write the expression for the log-likelihood of $N$ datapoints in terms of $\beta, \sigma$ using the normal density function.
 \item Using the data provided in \texttt{data/pset1/linregA.tsv}, calculate the log-likelihood of the data with $\beta = 0,\sigma=1$. Calculate the log-likelihood at the value of $\hat{\beta}$ which maximizes the log-likelihood. 
-\item Calculate the log-likelihood when $\beta = 0$, and evaluate the log-likelihood ratio ($\Lambda$). Comment on if the 
+\item Calculate the log-likelihood when $\beta = 0$, and evaluate the log-likelihood ratio ($\Lambda$). Comment on if the value indicates a substantial departure from the hypothesis of $\beta = 0$.
 \item For computational estimation, many approaches use ``least-squares'', which tries to find the $\beta$ which minimizes $\sum_i (y_i - x_i\beta)^2$. Calculate the least-squares estimate of $\beta$ based on the current data. Comment on how this is similar (both mathematically and empirically) to the maximum-likelihood estimator.
 \end{enumerate}
 
