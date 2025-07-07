@@ -42,13 +42,13 @@ $$r^2_{max}(tag, causal) = \frac{(1 - p_{tag})(1 - p_{causal})}{p_{tag}p_{causal
 
 Using the expressions for GWAS power for a quantitative trait, and $r^2_{max}(p_{tag}, p_{causal})$, show that:
 
-$$Power_{tag} \geq Power_{tag} \forall p_{tag} \geq p_{causal}$$
+$$Power_{tag} \geq Power_{causal} \hspace{1em}\forall \hspace{1em} p_{tag} \geq p_{causal}$$
 
 \subsubsection*{$\bLozenge\bLozenge$ Comparing GWAS}
 
 Your colleague has an interesting case where $YFT$ is highly prevalent in a different population (lets say population ``B'')and wants to understand if the same variant is driving this increase in prevalence. Your collaborator has access to $N_B=50000$ samples, but doesn't have a good sense of whether this would be well-suited to address the idea.
 
-If the effect-size of the causal variant is the same $\beta_A = \beta_B$, what would be the difference in frequency of the causal variant required to maintain a power of 80\% if the variant in population $A$ is at 0.1\% frequency? (Assume $N_A = 100,000$)  
+If the effect-size of the causal variant is the same (e.g. $\beta_A = \beta_B$), what would be the difference in frequency of the causal variant required to maintain a power of 80\% if the variant in population $A$ is at 0.1\% frequency? (Assume $N_A = 100,000$)  
 
 
 \section*{GWAS Practical}
@@ -87,8 +87,12 @@ where $F^{-1}_{\chi^2_1}(0.5) \approx 0.455$ is the expected median of the chi-s
 
 \subsection*{Power \& Shared Signals}
 
-One of the useful things about the Pan-UKBB project is that it can illustrate how to compare the \textit{power} of GWAS across different study designs. For a start, let us compare the intersection of signals found at a genome-wide threshold 
+One of the useful things about the Pan-UKBB project is that it can illustrate how to compare the \textit{power} of GWAS across different study designs and sample-populations.
 
+\begin{enumerate}
+\item For a start, let us compare the intersection of signals found at a genome-wide threshold $\alpha = 5\times 10^{-8}$ in the EUR and CSA sample subsets? Plot the fraction of signals that overlap as a function of $\alpha \in \{10^{-4}, 10^{-20}\}$
+\item Since we have the allele-frequency of the variants in each ancestry subset, for all shared marginal signals at the detection threshold $\alpha$, estimate the power to detect each of the shared signals? What is the mean detection power threshold for shared signals at different values of $\alpha$? (NOTE: assume that $\hat{\beta} \approx \beta_{causal}$ and $r^2 = 1$ for simplicity, though consider how violations of these assumptions might alter results) 
+\end{enumerate}
 
 
 \end{document}
