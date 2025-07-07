@@ -92,7 +92,7 @@ where the fraction $\pi_0$ can be treated as an estimate of the proportion of ef
 \item Write down the log-likelihood function for the observed effects (e.g. $\log (\mathbb{P}(\overrightarrow{\mathbf{\beta}} | \pi_0, \beta))$)
 \item Using the data in \texttt{data/pset1/sumstats\_testA.tsv}, plot the log-likelihood as a function of $\pi_0$ when $\sigma^2 = 2$. Provide an estimate of the value of $\pi_0$ that maximizes the log-likelihood. (Hint: use \texttt{logsumexp} to avoid numerical underflow.)
 \item Plot the log-likelihood as a function of $\pi_0$ with $\sigma^2 = 2$ for the data in \texttt{data/pset1/sumstats\_testB.tsv}. How does the curve appear relative to the first dataset? Would you estimate there are greater or fewer \textit{non-null} signals in this second dataset?
-\item $\bLozenge$ Fixing the value of $\pi_0$ at $0.25$, what is the value of $\sigma^2$ which maximizes the log-likelihood? Is this different than the assumed value of $2$? Plot the two-dimensional log-likelihood surface for all appropriate values of $\pi_0, \sigma^2$ (Note: limit $\sigma^2 < 10$). Comment on the likelihood-surface.
+\item $\bLozenge$ Fixing the value of $\pi_0$ at $0.25$, what is the value of $\sigma^2$ which maximizes the log-likelihood in dataset A? Is this different than the assumed value of $2$? Plot the two-dimensional log-likelihood surface for all appropriate values of $\pi_0, \sigma^2$ (Note: limit $\sigma^2 < 10$). Comment on the likelihood-surface.
 \item $\bLozenge\bLozenge$ Up to now we have assumed that the non-null variance parameter ($\sigma^2$) is known, but in practice it is not. If we knew the latent component assignment parameters ($Z_i \in \{0, 1\}$) per $\beta_i$, we could estimate the following two parameters straightforwardly: 
 
 $$
@@ -108,7 +108,7 @@ $$
 $$
 \begin{aligned}
 \pi_0 &= \frac{1}{n}\sum_{i} \gamma_i\\
-\sigma^2 &= \frac{1}{N_k} \sum (\beta_i^2)\delta(Z_i = 1)\\
+\sigma^2 &= \frac{1}{N_k} \sum (\beta_i^2)\gamma_i\\
 \end{aligned}
 $$
 , where $N_k = \sum_i^n \gamma_i$. Starting from initial parameter guesses of $\pi_0 = 0.5, \sigma^2 = 5$, calculate what the updated parameters ($\pi_0`, \sigma^2`$) would be (using the initial guesses to calculate $\gamma_i$ for \texttt{data/pset1/sumstats\_testA.tsv}). Calculate the log-likelihood using the initial parameters and the updated parameters, which one is higher? What if you repeat the process one more step (using $\pi_0`, \sigma^2`$ to re-calculate $\gamma_i$ and update the parameters again), does the likelihood increase?\footnote{If you've gotten to this step, you've implemented your first EM-algorithm!}  
