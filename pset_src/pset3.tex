@@ -14,38 +14,71 @@ One core aspect of complex trait architectures is the total number of loci ($M$)
 
 $$Z \sim \pi_0 \mathcal{N}(0,1) + (1 - \pi_0)\mathcal{N}(0,\sigma)$$,
 
-where $Z$ is the standardized effect of alleles
+where $Z$ is the standardized effect of alleles.
 
-\subsection*{Likelihood Calculation}
+To obtain the data for this exercise run: 
+
+\begin{center}
+\texttt{wget \url{https://pan-ukb-us-east-1.s3.amazonaws.com/sumstats_flat_files/biomarkers-30840-both_sexes-irnt.tsv.bgz}}
+\end{center}
 
 
 \subsection*{Maximum-Likelihood Estimation}
 
 Using the summary statistics provided - calculate the maximum-likelihood estimates of $\hat{\Theta} = (\hat{\pi}_0, \hat{\sigma})$ for trait A and trait B. You may use numerical or analytical methods. 
 
-\subsection*{Revised Model $\bLozenge\bLozenge$}
-
-Let us consider a revised model where we directly model the estimated univariate effect-sizes and their standard errors $(\hat{\beta}, \hat{s})$:
-
-$$f(\hat{\beta} | \beta, \hat{s}) = P(\hat{\beta} | \beta)$$
-
-
-\subsection*{Estimation from Empirical Datasets}
-
-% TODO: Estimate this from summary statistics for biomarkers?
 
 \section{Winner's Curse}
 
-% TODO: estimate in the 
+One core finding in statistics relevant to GWAS is what is known as the Winner's Curse. This asserts that by restricting to effect-sizes above a specific threshold $c$, the actual underlying effect-size $\hat{Z}$ that is estimated will be estimated with some bias - where the degree of bias is tied to the p-value threshold that is used. We illustrate this using data where the underlying true effects are also shown (from a simulation of causal variants) under the polygenic model. 
+
+The datasets are under \texttt{data/pset3/} for this exercise.
+
+
+\begin{enumerate}
+\item Using different p-value thresholds, estimate the extent of absolute bias $B = \frac{1}{N_{sig}} \sum \hat{\beta} - \beta$\footnote{Calculate this separately for signals with positive effects and negative effects to avoid signs simply canceling out}. Show visually that for stronger thresholds the effect-sizes are mis-estimated. 
+\item One common correction for biased effect-sizes is using the likelihood of effect-sizes \textit{conditional} on selection as a step for de-biasing.
+
+The conditional likelihood is: 
+
+$$L(|z| > c | \mu) = \frac{\phi(z - \mu)}{\Phi(-c + \mu) + \Phi(-c - \mu)},$$
+
+where $\phi$ is the normal density function and $\Phi$ is the normal cumulative density function. The conditional maximum likelihood estimator $\hat{\mu}$ serves as a de-biased estimator of the true effect-size. Using $\hat{z}  = \frac{\hat{\beta}}{\hat{s}_\beta}$, plot the de-biased estimates of $\beta$ against $\hat{\beta}$ for all test with $p < 10^{-4}$. 
+
+\item $\bLozenge\bLozenge\bLozenge$ One other method for solving the de-biasing is using Empirical Bayesian (EB) methods. This assumes that each standardized estimate $z \sim \mathcal{N}(\mu, 1)$. The fundamental idea is to use an approximation to the \textit{posterior} mean proposed by Efron 2009: 
+
+$$\mathbb{E}[\mu | z] = z + \frac{d}{dz} \log p(z),$$
+
+where $p(z)$ is the marginal density function. By approximating with its empirical counterpart --- $\log p(z) \approx \log \tilde{p}(z)$ --- we can arrive at a reasonable estimator of $\mu$. To get at $\tilde{p}$, we will use the following procedure. 
+
+\begin{itemize}
+	\item Bin all realized z-scores into $B$ equally spaced bins from $[min(Z), max(Z)]$. Keep track of the midpoints $M$ of each bin in the range.
+	\item Generate $K$ unit B-spline basis functions with knots at each of the $M$ midpoints in the range.
+	\item Fit a poisson generalized model for the bin counts against all $K$ spline functions evaluated at the knots. The fitted regression function at $z$ is the estimand of $\log \tilde{p}(z)$.
+	\item Estimate $\mathbb{E}[\mu | z] = \hat{z} + \frac{d}{dz} \log \tilde{p}(\hat{z})$ using numerical differentiation of the fit regression function.    
+\end{itemize}
+
+Evaluate how this estimator performs from a bias perspective for accounting for the winner's curse for both datasets. Compare with the conditional likelihood approach.   
+
+\end{enumerate}
 
 
 \section{Heritability}
 
+For this section, we will primarily assume the standard polygenic model:
+
+$$\beta \sim \mathcal{N}\left(0, \frac{h^2}{M}\right)$$
+
+
 \subsection*{Haseman-Elston Regression}
+ 
+One approach to estimating heritability 
 
 
-\subsection*{Linear Mixed Models}
+\subsection*{Linear Mixed Models \& REML}
 
+
+One other way to infer 
 
 
 
