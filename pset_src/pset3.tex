@@ -8,27 +8,7 @@
 \begin{document}
 \maketitle
 
-\section{Polygenicity}
-
-One core aspect of complex trait architectures is the total number of loci ($M$) involved in the etiology of a complex trait. The proportion of \textit{non-null} genetic associations can be thought of as the polygenicity of a complex trait. We will consider the following simple model for polygenicity based on a normal mixture model:  
-
-$$Z \sim \pi_0 \mathcal{N}(0,1) + (1 - \pi_0)\mathcal{N}(0,\sigma)$$,
-
-where $Z$ is the standardized effect of alleles.
-
-To obtain the data for this exercise run: 
-
-\begin{center}
-\texttt{wget \url{https://pan-ukb-us-east-1.s3.amazonaws.com/sumstats_flat_files/biomarkers-30840-both_sexes-irnt.tsv.bgz}}
-\end{center}
-
-
-\subsection*{Maximum-Likelihood Estimation}
-
-Using the summary statistics provided - calculate the maximum-likelihood estimates of $\hat{\Theta} = (\hat{\pi}_0, \hat{\sigma})$ for trait A and trait B. You may use numerical or analytical methods. 
-
-
-\section{Winner's Curse}
+\section*{Winner's Curse}
 
 One core finding in statistics relevant to GWAS is what is known as the Winner's Curse. This asserts that by restricting to effect-sizes above a specific threshold $c$, the actual underlying effect-size $\hat{Z}$ that is estimated will be estimated with some bias - where the degree of bias is tied to the p-value threshold that is used. We illustrate this using data where the underlying true effects are also shown (from a simulation of causal variants) under the polygenic model. 
 
@@ -63,30 +43,51 @@ Evaluate how this estimator performs from a bias perspective for accounting for 
 \end{enumerate}
 
 
-\section{Heritability}
+\section*{Heritability}
 
-For this section, we will primarily assume the standard polygenic model:
 
-$$\beta \sim \mathcal{N}\left(0, \frac{h^2}{M}\right)$$
-
+All data in this section are in \texttt{data/pset3/multi\_pheno}.
 
 \subsection*{Haseman-Elston Regression}
  
-One approach to estimating heritability 
+One approach to estimating heritability is to consider a moment-based estimator: 
 
+$$\mathbb{E}[Y_iY_j] = h^2 \mathbb{E}[X_i^TX_j]$$
+
+where $\mathbb{E}[Y] = 0$, or that each phenotype is centered on 0. If genotypes are similarly centered such that: 
+
+$$G \in {0,1,2}$$
+$$X = \frac{G - 2\mu_G}{\sigma_G}$$ 
+
+such that $\sigma_G = \sqrt{2p(1-p)}$ and $\mu_G$ is the population allele frequency. The regression is performed using all pairs of individuals $i < j$. Run this regression estimate for all traits in the dataset using simple linear regression.  
 
 \subsection*{Linear Mixed Models \& REML}
 
+One way to model these quantitative phenotypes via likelihood is: 
 
-One other way to infer 
+$$y \sim \mathcal{MVN}(0, \sigma^2_g \mathbf{K} + \sigma_e^2 \mathbf{I}),$$ 
+
+where $\mathbf{K}_{ij} = x_i^Tx_j$, where $x$ are the normalized genotypes as above. If we reparameterize the likelihood using $\eta^2 = \frac{\sigma^2_g}{\sigma+^2_g + \sigma^2_e}$, then: 
+
+$$
+l(\sigma^2_e, \eta^2) = -\frac{1}{2}\log(\sigma^2_e) - \frac{1}{2n}\log \det\left(\frac{\eta^2}{m}\mathbf{K} + \mathbf{I}\right) -\frac{1}{2n\sigma^2_e} \mathbf{y}^T\left(\frac{\eta^2}{m}\mathbf{K} + \mathbf{I}\right)^{-1}\mathbf{y}
+$$
+
+Using this likelihood definition - estimate $\hat{h^2} = \frac{\hat{\eta}^2}{\hat{\eta}^2 + 1}$ for each trait. Restrict $\sigma^2_e = 1.0$ and estimate $\hat{\eta}^2 \in \{10^{-2}, 10^1\}$. The following hints may be helpful:
 
 
+\begin{itemize}
+\item For the term using the determinant - naively computing the determinant for large matrices takes quite some time ($O(n^3)$). To avoid this, you may want to use the following relationship 
 
-\section{Indirect Genetic Effects}
+$$\log \det \mathbf{A} \approx \text{trace} \log(\mathbf{A})$$
 
+where the finale $\log$ is the matrix-logarithm.
 
+\item For the matrix inverse term - you can use the properties of eigendecomposition 
+$$\mathbf{A}^-1 = \mathbf{Q}\Lambda^{-1}\mathbf{Q}^T$$
 
-
+where $\Lambda^{-1}_{ii} = \frac{1}{\lambda_i}$ on the diagonal.
+\end{itemize}
 
 
 
